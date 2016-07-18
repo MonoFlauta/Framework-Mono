@@ -4,6 +4,7 @@ package Mono.Visual
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.display.Stage;
 
 	public class Camera2D
 	{
@@ -14,14 +15,23 @@ package Mono.Visual
 		{
 		}
 		
-		/** Turns on the camera.
+		/** Turns on the camera using a Sprite as container.
 		 * 
 		 * @param container Sprite of the container where the cam is added
 		 *  */
-		public function turnOn(container:Sprite):void
+		public function turnOnAtSprite(container:Sprite):void
 		{
 			view = new Sprite();
 			container.addChild(view);
+		}
+		
+		/** Turns on the camera using the stage at Mono.
+		 * 
+		 *  */
+		public function turnOnAtStage():void
+		{
+			view = new Sprite();
+			Main.mono.mainStage.addChild(view);
 		}
 		
 		/** Turns off the camera.
@@ -44,7 +54,7 @@ package Mono.Visual
 		 * 
 		 * @param s Sprite to add
 		 *  */
-		public function addToView(s:MovieClip):void
+		public function addToView(s:Sprite):void
 		{
 			if(view != null)
 			{
@@ -60,7 +70,7 @@ package Mono.Visual
 		 * 
 		 * @param s Sprite to remove
 		 *  */
-		public function removeToView(s:MovieClip):void
+		public function removeToView(s:Sprite):void
 		{
 			if(view != null)
 			{
@@ -91,8 +101,8 @@ package Mono.Visual
 		{
 			var objectiveX:Number = s.x * zoom - moveInX - Main.mono.mainStage.stageWidth / 2;
 			var objectiveY:Number = s.y * zoom - moveInY - Main.mono.mainStage.stageHeight / 2;
-			x += objectiveX / speed;
-			y += objectiveY / speed;
+			x = objectiveX / speed;
+			y = objectiveY / speed;
 			
 			if(zoom > 0)
 			{
