@@ -14,70 +14,85 @@ package Mono.Visual
 		{
 		}
 		
-		/** Creates a camera.
-		 * 
-		 * 
-		 * @return Returns the camera */
-		public function create():Sprite
-		{
-			var cam:Sprite = new Sprite();
-			view = cam;
-			return cam;
-		}
-		
 		/** Turns on the camera.
 		 * 
-		 * @param cam Sprite of the camera
 		 * @param container Sprite of the container where the cam is added
 		 *  */
-		public function turnOn(cam:Sprite, container:Sprite):void
+		public function turnOn(container:Sprite):void
 		{
-			container.addChild(cam);
+			view = new Sprite();
+			container.addChild(view);
 		}
 		
 		/** Turns off the camera.
 		 * 
-		 * @param cam Sprite of the camera
 		 *  */
-		public function turnOff(cam:Sprite):void
+		public function turnOff():void
 		{
-			cam.parent.removeChild(cam);
+			if(view != null)
+			{
+				view.parent.removeChild(view);
+				view = null;
+			}
+			else
+			{
+				Main.mono.reportWarning("Camera wasn't on", "Visual", "Camera2D", "turnOff");
+			}
 		}
 		
-		/** Adds a movieclip to the camera.
+		/** Adds a sprite to the camera.
 		 * 
-		 * @param cam Sprite of the camera
-		 * @param obj Movieclip to add
+		 * @param s Sprite to add
 		 *  */
-		public function addToView(cam:Sprite, obj:MovieClip):void
+		public function addToView(s:MovieClip):void
 		{
-			cam.addChild(obj);
+			if(view != null)
+			{
+				view.addChild(s);
+			}
+			else
+			{
+				Main.mono.reportError("Camera wasn't on", "Visual", "Camera2D", "addToView");
+			}
 		}
 		
-		/** Removes a movieclip from the camera.
+		/** Removes a sprite from the camera.
 		 * 
-		 * @param cam Sprite of the camera
-		 * @param obj Movieclip to remove
+		 * @param s Sprite to remove
 		 *  */
-		public function removeToView(cam:Sprite, obj:MovieClip):void
+		public function removeToView(s:MovieClip):void
 		{
-			cam.removeChild(obj);
+			if(view != null)
+			{
+				if(view.contains(s))
+				{
+					view.removeChild(s);
+				}
+				else
+				{
+					Main.mono.reportWarning("Sprite wasn't inside the view", "Visual", "Camera2D", "removeToView");
+				}
+			}
+			else
+			{
+				Main.mono.reportWarning("Camera wasn't on", "Visual", "Camera2D", "removeToView");
+			}
 		}
 		
-		/** Smooth look to a movieclip.
+		/** Smooth look to a sprite.
 		 * 
-		 * @param cam Sprite of the camera
-		 * @param obj Movieclip wich the camera has to look at
-		 * @param anchoStage stageWidth of the stage
+		 * @param s Sprite wich the camera has to look at
+		 * @param moveInX How much it should be moved in X (Default: 0)
+		 * @param moveInY How much it should be moved in Y (Default: 0)
 		 * @param zoom Zoom to use (Default: 1)
-		 * @param velocidad Speed of look (Default: 25)
+		 * @param speed Speed of look (Default: 25)
 		 *  */
-		public function smoothLookAt(cam:Sprite, obj:MovieClip, anchoStage:int, zoom:int = 1, velocidad:int = 25):void
+		public function smoothLookAt(s:Sprite, moveInX:Number = 0, moveInY:Number = 0, zoom:int = 1, speed:int = 25):void
 		{
-			var objetivoX:Number = (obj.x + obj.mc_hitCenter.width/2) * zoom - x - anchoStage / 2;
-			cam.addChild(obj);
-			
-			x += objetivoX / 25;
+			var objectiveX:Number = s.x * zoom - moveInX - Main.mono.mainStage.stageWidth / 2;
+			var objectiveY:Number = s.y * zoom - moveInY - Main.mono.mainStage.stageHeight / 2;
+			x += objectiveX / speed;
+			y += objectiveY / speed;
 			
 			if(zoom > 0)
 			{
