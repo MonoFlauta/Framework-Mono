@@ -95,23 +95,34 @@ package Mono.Visual
 		 * @param moveInX How much it should be moved in X (Default: 0)
 		 * @param moveInY How much it should be moved in Y (Default: 0)
 		 * @param zoom Zoom to use (Default: 1)
-		 * @param speed Speed of look (Default: 25)
+		 * @param speed Drag speed of look (Default: 25)
 		 *  */
 		public function smoothLookAt(s:Sprite, moveInX:Number = 0, moveInY:Number = 0, zoom:int = 1, speed:int = 25):void
 		{
-			var objectiveX:Number = s.x * zoom - moveInX - Main.mono.mainStage.stageWidth / 2;
-			var objectiveY:Number = s.y * zoom - moveInY - Main.mono.mainStage.stageHeight / 2;
-			x = objectiveX / speed;
-			y = objectiveY / speed;
+			x += (s.x * zoom + moveInX - Main.mono.mainStage.stageWidth / 2 - x) / speed;
+			y += (s.y * zoom + moveInY - Main.mono.mainStage.stageHeight / 2 - y) / speed;
 			
 			if(zoom > 0)
-			{
 				view.scaleX = view.scaleY = zoom;
-			}
 			else
-			{
 				Main.mono.reportWarning("The zoom can't be 0 or lower, zoom wasn't changed", "Visual", "Camera2D", "smoothLookAt");
-			}
+		}
+		
+		/** Look to a sprite.
+		 * 
+		 * @param s Sprite wich the camera has to look at
+		 * @param moveInX How much it should be moved in X (Default: 0)
+		 * @param moveInY How much it should be moved in Y (Default: 0)
+		 * @param zoom Zoom to use (Default: 1)
+		 * */
+		public function lookAt(s:Sprite, moveInX:Number = 0, moveInY:Number = 0, zoom:int = 1):void
+		{
+			x = s.x + zoom + moveInX - Main.mono.mainStage.stageWidth / 2;
+			y = s.y + zoom + moveInY - Main.mono.mainStage.stageHeight / 2;
+			if(zoom > 0)
+				view.scaleX = view.scaleY = zoom;
+			else
+				Main.mono.reportWarning("The zoom can't be 0 or lower, zoom wasn't changed", "Visual", "Camera2D", "lookAt");
 		}
 		
 		public function set x(value:Number):void
