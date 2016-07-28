@@ -95,12 +95,13 @@ package Mono.Visual
 		 * @param moveInX How much it should be moved in X (Default: 0)
 		 * @param moveInY How much it should be moved in Y (Default: 0)
 		 * @param zoom Zoom to use (Default: 1)
-		 * @param speed Drag speed of look (Default: 25)
+		 * @param speedInX Drag speed of look in X (Default: 25)
+		 * @param speedInY Drag speed of look in Y (Default: 25)
 		 *  */
-		public function smoothLookAt(s:Sprite, moveInX:Number = 0, moveInY:Number = 0, zoom:int = 1, speed:int = 25):void
+		public function smoothLookAt(s:Sprite, moveInX:Number = 0, moveInY:Number = 0, zoom:int = 1, speedInX:int = 25, speedInY:int = 25):void
 		{
-			x += (s.x * zoom + moveInX - Main.mono.mainStage.stageWidth / 2 - x) / speed;
-			y += (s.y * zoom + moveInY - Main.mono.mainStage.stageHeight / 2 - y) / speed;
+			x += (s.x * zoom + moveInX - Main.mono.mainStage.stageWidth / 2 - x) / speedInX;
+			y += (s.y * zoom + moveInY - Main.mono.mainStage.stageHeight / 2 - y) / speedInY;
 			
 			if(zoom > 0)
 				view.scaleX = view.scaleY = zoom;
