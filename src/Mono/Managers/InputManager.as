@@ -13,6 +13,8 @@ package Mono.Managers
 		public var keysByName:Dictionary = new Dictionary();
 		public var currentTime:Number;
 		
+		private var _recordingKey:String;
+		
 		/** Creates the class InputManager.
 		 * 
 		 * 
@@ -144,5 +146,26 @@ package Mono.Managers
 			return keysByName[name] != null ? keysByName[name].wasReleased : false;
 		}
 		
+		/** Records the next key by the given name.
+		 * 
+		 * @param name Name of the key
+		 * 
+		 * */
+		public function recordKeyOnRelease(name:String):void
+		{
+			_recordingKey = name;
+			Main.mono.mainStage.addEventListener(KeyboardEvent.KEY_UP, onReleaseForRecorded);
+		}
+		
+		/** Called when recording key and a key is pressed.
+		 * 
+		 * @param e Keyboard event
+		 * 
+		 * */
+		private function onReleaseForRecorded(e:KeyboardEvent):void
+		{
+			addRelationKey(e.keyCode, _recordingKey);
+			Main.mono.mainStage.removeEventListener(KeyboardEvent.KEY_UP, onReleaseForRecorded);
+		}
 	}
 }
