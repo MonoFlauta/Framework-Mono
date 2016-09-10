@@ -27,7 +27,7 @@ package Mono
 		public function Mono(stage:Stage)
 		{
 			createMarker();
-			trace("Framework 'Mono' // v1.0.0 // Created by Facundo Balboa (MonoFlauta https://www.facebook.com/MonoFlauta)");
+			trace("Framework 'Mono'// Created by Facundo Balboa (MonoFlauta https://www.facebook.com/MonoFlauta)");
 			mainStage = stage;
 			createMarker();
 		}

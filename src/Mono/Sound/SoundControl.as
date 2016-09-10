@@ -54,6 +54,7 @@ package Mono.Sound
 				Main.mono.reportWarning("It is not possible to start a sound in negative time. It started in 0 by default.", "Sound", "SoundControl", "reproduceSound");
 			}
 			this._sound = sound;
+			_soundChannel = new SoundChannel();
 			_soundSetting = new SoundTransform(volume, panning);
 			if(_soundChannel != null)
 			{
