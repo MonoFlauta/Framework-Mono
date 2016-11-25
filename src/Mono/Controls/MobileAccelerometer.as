@@ -24,14 +24,14 @@ package Mono.Controls
 		}
 		
 		/** Turns the controller on.
-		 * @param Sensitivity of the device in X (Default: 0.10)
-		 * @param Sensitivity of the device in Y (Default: 0.10)
+		 * @param toleranceX Sensitivity of the device in X (Default: 0.10)
+		 * @param toleranceY Sensitivity of the device in Y (Default: 0.10)
 		 * 
 		 *  */
-		public function turnOn(toleranciaX:Number=0.10, toleranciaY:Number=0.10):void
+		public function turnOn(toleranceX:Number=0.10, toleranceY:Number=0.10):void
 		{
-			_xTolerance = toleranciaX;
-			_yTolerance = toleranciaY;
+			_xTolerance = toleranceX;
+			_yTolerance = toleranceY;
 			if(_turnedOn)
 			{
 				Main.mono.reportWarning("The accelerometer was already on", "Controls", "MobileAccelerometer", "turnOn");

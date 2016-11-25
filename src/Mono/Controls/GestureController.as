@@ -120,21 +120,21 @@ package Mono.Controls
 		
 		/** Checks whether movement should or not be added. In case it should be added, it is added. 
 		 * 
-		 * @param direccion The direction to be added.
+		 * @param direction The direction to be added.
 		 * 
 		 *  */
-		private function addToChangeMovement(direccion:String):void
+		private function addToChangeMovement(direction:String):void
 		{
 			if(changeMovementList.length>0) 
 			{
-				if(changeMovementList[changeMovementList.length-1]!=direccion) 
+				if(changeMovementList[changeMovementList.length-1]!=direction) 
 				{
-					changeMovementList.push(direccion);
+					changeMovementList.push(direction);
 				}
 			}
 			else 
 			{
-				changeMovementList.push(direccion); 
+				changeMovementList.push(direction); 
 			}
 		}
 		
