@@ -9,10 +9,8 @@ package Mono.Managers
 	
 	public class InputManager
 	{
-		public var keys:Array = new Array();
-		public var keysByName:Dictionary = new Dictionary();
-		public var currentTime:Number;
-		
+		private var _keys:Array = new Array();
+		private var _keysByName:Dictionary = new Dictionary();	
 		private var _recordingKey:String;
 		
 		/** Creates the class InputManager.
@@ -31,11 +29,11 @@ package Mono.Managers
 		 *  */
 		private function evKeyDown(e:KeyboardEvent):void
 		{
-			var k:Key = keys[e.keyCode];
+			var k:Key = _keys[e.keyCode];
 			if(k == null)
 			{
 				k = new Key();
-				keys[e.keyCode] = k;
+				_keys[e.keyCode] = k;
 			}
 			
 			if(!k.isPressed)
@@ -49,11 +47,11 @@ package Mono.Managers
 		 *  */
 		private function evKeyUp(e:KeyboardEvent):void
 		{
-			var k:Key = keys[e.keyCode];
+			var k:Key = _keys[e.keyCode];
 			if(k == null)
 			{
 				k = new Key();
-				keys[e.keyCode] = k;
+				_keys[e.keyCode] = k;
 			}
 			
 			if(k.isPressed)
@@ -70,14 +68,14 @@ package Mono.Managers
 		 *  */
 		public function addRelationKey(code:int, name:String):void
 		{
-			var k:Key = keys[code];
+			var k:Key = _keys[code];
 			if(k == null)
 			{
 				k = new Key();
-				keys[code] = k;
+				_keys[code] = k;
 			}
 			
-			keysByName[name] = k;
+			_keysByName[name] = k;
 		}
 		
 		/** Informs if the key is being pressed.
@@ -88,7 +86,7 @@ package Mono.Managers
 		 *  */
 		public function getKeyPressed(code:int):Boolean
 		{
-			return keys[code] != null ? keys[code].isPressed : false;
+			return _keys[code] != null ? _keys[code].isPressed : false;
 		}
 		
 		/** Informs if the key has been pressed.
@@ -99,7 +97,7 @@ package Mono.Managers
 		 *  */
 		public function getKeyWasPressed(code:int):Boolean
 		{
-			return keys[code] != null ? keys[code].wasPressed : false;
+			return _keys[code] != null ? _keys[code].wasPressed : false;
 		}
 		
 		/** Informs if the key was released.
@@ -110,7 +108,7 @@ package Mono.Managers
 		 *  */
 		public function getKeyReleased(code:int):Boolean
 		{
-			return keys[code] != null ? keys[code].wasReleased : false;
+			return _keys[code] != null ? _keys[code].wasReleased : false;
 		}
 		
 		/** Informs if the key, identified by its name, is being pressed.
@@ -121,7 +119,7 @@ package Mono.Managers
 		 *  */
 		public function getKeyPressedByName(name:String):Boolean
 		{
-			return keysByName[name] != null ? keysByName[name].isPressed : false;
+			return _keysByName[name] != null ? _keysByName[name].isPressed : false;
 		}
 		
 		/** Informs if the key, identified by its name, was pressed.
@@ -132,7 +130,7 @@ package Mono.Managers
 		 *  */
 		public function getKeyWasPressedByName(name:String):Boolean
 		{
-			return keysByName[name] != null ? keysByName[name].wasPressed : false;
+			return _keysByName[name] != null ? _keysByName[name].wasPressed : false;
 		}
 		
 		/** Informs if the key, identified by its name, was released.
@@ -143,7 +141,7 @@ package Mono.Managers
 		 *  */
 		public function getKeyReleasedByName(name:String):Boolean
 		{
-			return keysByName[name] != null ? keysByName[name].wasReleased : false;
+			return _keysByName[name] != null ? _keysByName[name].wasReleased : false;
 		}
 		
 		/** Records the next key by the given name.
