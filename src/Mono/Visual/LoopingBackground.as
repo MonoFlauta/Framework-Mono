@@ -38,8 +38,11 @@ package Mono.Visual
 			if(_movement.y != 0) _secondBackground.y = _secondBackground.height * _movement.y / _movement.y *-1;
 			else _secondBackground.y = 0;
 			
-			_stageWidth = Main.mainStage.stageWidth;
-			_stageHeight = Main.mainStage.stageHeight;
+			_firstBackground.x -= 50;
+			_secondBackground.x -= 50;
+			
+			_stageWidth = Main.mono.mainStage.stageWidth;
+			_stageHeight = Main.mono.mainStage.stageHeight;
 		}
 		
 		/** Starts reproducing the looping background
@@ -95,6 +98,16 @@ package Mono.Visual
 				}
 				
 			}
+		}
+		
+		/** Creates a looping background in any direction.
+		 * 
+		 * @param direction The direction where the backgrounds will move
+		 * 
+		 * */
+		public function changeDirection(direction:Point):void
+		{
+			_movement = direction;
 		}
 		
 		/** Stops the background.
