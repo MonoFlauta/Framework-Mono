@@ -14,7 +14,7 @@ package Mono.Managers
 	{
 		private var _id:String;
 		private var _encrypt:String;
-		private var __root:DisplayObject;
+		private var _root:DisplayObject;
 		private var _flashAd:FlashAd;
 		private var _scoreBrowser:ScoreBrowser;
 		
@@ -29,8 +29,8 @@ package Mono.Managers
 		{
 			_id=apiID;
 			_encrypt=apiEncrypt;
-			__root = apiRoot;
-			API.connect(__root, _id, _encrypt);
+			_root = apiRoot;
+			API.connect(_root, _id, _encrypt);
 			Main.mono.reportOpen("NewgroundsAPIManager.as", "Managers");
 		}
 		
@@ -40,7 +40,7 @@ package Mono.Managers
 		 * @param posY Position in Y of Ad (Default: 0)
 		 * 
 		 *  */
-		public function AddAd(posX:int = 0, posY:int = 0):void
+		public function addAd(posX:int = 0, posY:int = 0):void
 		{
 			if(_flashAd == null)
 			{
@@ -59,7 +59,7 @@ package Mono.Managers
 		 * 
 		 * 
 		 *  */
-		public function RemoveAd():void
+		public function removeAd():void
 		{
 			if(_flashAd!=null)
 			{
