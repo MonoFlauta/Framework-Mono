@@ -28,7 +28,7 @@ package Mono.Managers
 		{
 			if(!isPaused)
 			{
-				for(var i:int = 0; i<_callBacks.length; i++)
+				for(var i:int = _callBacks.length -1; i>= 0; i--)
 				{ 
 					_callBacks[i]();
 				}
