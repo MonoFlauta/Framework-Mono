@@ -10,7 +10,6 @@ package Mono.Visual
 	{
 		
 		private var _model:MovieClip;
-		private var _container:Sprite;
 		private var _movX:Number;
 		private var _movY:Number;
 		
@@ -24,16 +23,15 @@ package Mono.Visual
 		 * */
 		public function Effect(container:Sprite, model:MovieClip, posX:Number, posY:Number, movX:Number = 0, movY:Number = 0)
 		{
-			this._model=model;
-			this._model.x=posX; 
-			this._model.y=posY; 
+			_model = model;
+			_model.x = posX; 
+			_model.y = posY; 
 			container.addChild(this._model); 
-			this._container=container; 
-			this._model.addEventListener("endEffect", destroy); 
+			_model.addEventListener("endEffect", destroy); 
 			if(movX!=0 || movY!=0) 
 			{
-				this._movX = movX; 
-				this._movY = movY; 
+				_movX = movX; 
+				_movY = movY; 
 				model.addEventListener(Event.ENTER_FRAME, moveEffect); 
 			}
 		}
@@ -52,11 +50,11 @@ package Mono.Visual
 		 * */
 		public function destroy(e:Event):void
 		{
-			if(_movX!=0 && _movY!=0) 
+			if(_movX!=0 || _movY!=0) 
 			{
 				_model.removeEventListener(Event.ENTER_FRAME, moveEffect); 
 			}
-			_container.removeChild(_model); 
+			_model.parent.removeChild(_model); 
 			_model.removeEventListener("endEffect", destroy); 
 		}
 	}
