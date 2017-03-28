@@ -1,6 +1,5 @@
 package
-{	
-	import Mono.Mono;
+{	import Mono.Mono;
 	
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
