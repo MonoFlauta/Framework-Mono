@@ -28,9 +28,9 @@ package Mono.Sound
 		 * 
 		 * @param sound Sound to reproduce
 		 * @param loop Times to make loop. If it's negative, it will do infite times (Default: 0)
-		 * @param volume Volume of the sound (Por defecto 1)
-		 * @param panning Panning of the sound (Por defecto 0)
-		 * @param startTime Start time of the sound (Por defecto 0)
+		 * @param volume Volume of the sound (Default: 1)
+		 * @param panning Panning of the sound (Default: 0)
+		 * @param startTime Start time of the sound (Default: 0)
 		 * 
 		 *  */
 		public function reproduceSound(sound:Sound, loop:int = 0, volume:Number = 1, panning:Number = 0, startTime:int = 0):void

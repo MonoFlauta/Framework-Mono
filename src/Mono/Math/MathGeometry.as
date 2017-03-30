@@ -78,5 +78,33 @@ package Mono.Math
 		{
 			return Math.abs(x - y);
 		}
+		
+		/** Obtains the cos value.
+		 * 
+		 * @param displacementBase The base displacement
+		 * @param angularFrequency The angular frequency (Default: 1)
+		 * @param amplitude The amplitude of the wave (Default: 1)
+		 * @param verticalDisplacement The vertical displacement (Default: 0)
+		 * 
+		 * @reeturn Returns the cos value.
+		 * */
+		public static function getCos(displacementBase:Number, angularFrequency:Number = 1, amplitude:Number = 1, verticalDisplacement:Number = 0):Number
+		{
+			return amplitude * Math.cos(2 * Math.PI / angularFrequency + displacementBase) + verticalDisplacement;
+		}
+		
+		/** Obtains the sin value.
+		 * 
+		 * @param displacementBase The base displacement
+		 * @param angularFrequency The angular frequency (Default: 1)
+		 * @param amplitude The amplitude of the wave (Default: 1)
+		 * @param verticalDisplacement The vertical displacement (Default: 0)
+		 * 
+		 * @reeturn Returns the sin value.
+		 * */
+		public static function getSin(displacementBase:Number, angularFrequency:Number = 1, amplitude:Number = 1, verticalDisplacement:Number = 0):Number
+		{
+			return amplitude * Math.sin(2 * Math.PI / angularFrequency + displacementBase) + verticalDisplacement;
+		}
 	}
 }
