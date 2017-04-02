@@ -2,6 +2,7 @@ package Mono
 {
 	
 	import Mono.Managers.InputManager;
+	import Mono.Managers.PauseManager;
 	import Mono.Managers.SaveManager;
 	import Mono.Managers.ScreenManager;
 	import Mono.Managers.UpdateManager;
@@ -9,6 +10,8 @@ package Mono
 	
 	import flash.display.Sprite;
 	import flash.display.Stage;
+	
+	import flashx.textLayout.formats.BackgroundColor;
 
 	/**
 	 * Framework 'Mono' by Facundo Balboa (MonoFlauta https://www.facebook.com/MonoFlauta)
@@ -19,6 +22,7 @@ package Mono
 		public var mainStage:Stage;
 		public var updateManager:UpdateManager;
 		public var inputManager:InputManager;
+		public var pauseManager:PauseManager;
 		public var screenManager:ScreenManager;
 		public var saveManager:SaveManager;
 		
@@ -30,6 +34,42 @@ package Mono
 			trace("Framework 'Mono'// Created by Facundo Balboa (MonoFlauta - http://www.monoflauta.com - https://www.facebook.com/MonoFlauta)");
 			mainStage = stage;
 			createMarker();
+		}
+		
+		/** Inits most the managers of the Framework (Input, Pause, Screen and Update)
+		 * 
+		 * @param initScreenManager If the screen manager should be initialized (Default: True)
+		 * @param initPauseManager If the pause manager should be initialized (Default: True)
+		 * @param initInputManager If the input manager should be initialized (Default: True)
+		 * @param initUpdateManager If the update manager should be initialized (Default: True)
+		 * 
+		 * */
+		public function initManagers(initScreenManager:Boolean = true, initPauseManager:Boolean = true, initInputManager:Boolean = true, initUpdateManager:Boolean = true):void
+		{
+			if(initUpdateManager)
+			{
+				if(updateManager != null) reportWarning("Update Manager was already created", "Mono", "Mono.as", "initManagers");
+				else updateManager = new UpdateManager();
+			}
+			if(initScreenManager)
+			{
+				if(updateManager != null) 
+				{
+					if(screenManager != null) reportWarning("Screen Manager was already created", "Mono", "Mono.as", "initManagers");
+					else screenManager = new ScreenManager();
+				}
+				else reportError("You can't init Screen Manager without having the update manager", "Mono", "Mono.as", "initManagers");
+			}
+			if(initPauseManager)
+			{
+				if(pauseManager != null) reportWarning("Pause Manager was already created", "Mono", "Mono.as", "initManagers");
+				else pauseManager = new PauseManager();
+			}
+			if(initInputManager)
+			{
+				if(inputManager != null) reportWarning("Input Manager was already created", "Mono", "Mono.as", "initManagers");
+				else inputManager = new InputManager();
+			}
 		}
 		
 		/** Creates an error message to tell the user via a trace.

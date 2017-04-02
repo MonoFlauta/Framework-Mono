@@ -1,8 +1,8 @@
 package
-{	import Mono.Mono;
-	
-	import flash.display.Sprite;
-	import flash.utils.Dictionary;
+{
+import Mono.Mono;
+
+import flash.display.Sprite;
 	
 	public class Main extends Sprite
 	{	
