@@ -9,8 +9,8 @@ package Mono.Managers
 	
 	public class ScreenManager
 	{
-		public var screens:Dictionary = new Dictionary();
-		public var currentScreen:Screen;
+		private var _screens:Dictionary = new Dictionary();
+		private var _currentScreen:Screen;
 		
 		/** Creates the ScreenManager. Besides, it creates an uptdate upon beginning.
 		 * 
@@ -25,9 +25,9 @@ package Mono.Managers
 		 *  */
 		private function evUpdate():void
 		{
-			if(currentScreen != null && !currentScreen.isPaused)
+			if(_currentScreen != null && !_currentScreen.isPaused)
 			{
-				currentScreen.update();
+				_currentScreen.update();
 			}
 		}
 		
@@ -39,7 +39,7 @@ package Mono.Managers
 		 *  */
 		public function registerScreen(name:String, scr:Class):void
 		{
-			screens[name] = scr;
+			_screens[name] = scr;
 		}
 		
 		/** Loads a screen removing the previous.
@@ -49,20 +49,32 @@ package Mono.Managers
 		 *  */
 		public function loadScreen(name:String):void
 		{
-			var screenClass:Class = screens[name]; 
+			var screenClass:Class = _screens[name]; 
 			if(screenClass != null) 
 			{
-				if(currentScreen!=null) 
+				if(_currentScreen!=null) 
 				{
-					currentScreen.exit(); 
-					currentScreen = null; 
+					_currentScreen.exit(); 
+					_currentScreen = null; 
 				}
-				currentScreen = new screenClass(name); 
-				currentScreen.addEventListener("Change Screen", evChange); 
+				_currentScreen = new screenClass(name); 
+				_currentScreen.addEventListener("Change Screen", evChange); 
 			}
 			else
 			{
 				Main.mono.reportError("The screen has not been registered", "Managers", "ScreenManager", "loadScreen");
+			}
+		}
+		
+		/** Closes the current screen
+		 * 
+		 * */
+		public function closeScreen():void
+		{
+			if(_currentScreen != null)
+			{
+				_currentScreen.exit();
+				_currentScreen = null;
 			}
 		}
 		
