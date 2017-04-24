@@ -2,7 +2,7 @@
 
 This is a framework for making AS3 Flash Games (Web, Mobile or Desktop) though you can use it as a AS3 framework. Feel free to use it, ask for stuff and/or help adding more to it!
 
-## Where can I start to use it?
+## Where can I start in order to use it?
 
 There are a few tutorials in my website http://monoflauta.com/portfolio/frameworkstools/framework-mono/ or you can just read the wiki here. If you have any questions, feel free to contact me or in the issues tab.
 
