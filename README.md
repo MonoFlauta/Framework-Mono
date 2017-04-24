@@ -1,37 +1,24 @@
-## Welcome to GitHub Pages
+## Welcome to Framework Mono
 
-You can use the [editor on GitHub](https://github.com/MonoFlauta/Framework-Mono/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+This is a framework for making AS3 Flash Games (Web, Mobile or Desktop) though you can use it as a AS3 framework. Feel free to use it, ask for stuff and/or help adding more to it!
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Where can I start to use it?
 
-### Markdown
+There are a few tutorials in my website http://monoflauta.com/portfolio/frameworkstools/framework-mono/ or you can just read the wiki here. If you have any questions, feel free to contact me or in the issues tab.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## How can I help?
 
-```markdown
-Syntax highlighted code block
+If you want to help, you can do any of the following things:
+-Go to the Issues tab and add check what we are looking foward to add or fix.
+-Create tutorials of tools.
+-Fill the wiki with information that isn't updated or isn't even created.
+-Just create something with it and tell us!
 
-# Header 1
-## Header 2
-### Header 3
+## Games made with Framework Mono
+-Asterash - http://www.newgrounds.com/portal/view/690047
+-Stealth at School - http://www.newgrounds.com/portal/view/675507
+-No más Dulces - http://monoflauta.com/all-games/no-mas-dulces/
 
-- Bulleted
-- List
+## Support or Contact
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/MonoFlauta/Framework-Mono/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+If you are having any troubles or need help, you can use the issues tab or email me at monoflauta@gmail.com
