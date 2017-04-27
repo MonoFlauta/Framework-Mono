@@ -37,14 +37,14 @@ package Mono.Managers
 		
 		/** Loads the data. These data will be accesed from the dataLoaded variable. Besides, it will dispatch the Event.COMPLETE event once it finished loading the data.
 		 * 
+		 * @param callback This function will be called once the game is loaded
 		 * 
 		 *  */
-		public function load():void
+		public function load(callback:Function = null):void
 		{
 			_saver = SharedObject.getLocal(_gameName);
 			dataLoaded = _saver.data.mySaves;
-			
-			dispatchEvent( new Event( Event.COMPLETE ) );
+			callback();
 		}
 	}
 }
