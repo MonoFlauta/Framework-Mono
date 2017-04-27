@@ -10,7 +10,6 @@ import flash.display.Sprite;
 		
 		public function Main()
 		{
-			mono = new Mono(stage);
 		}
 	}
 }

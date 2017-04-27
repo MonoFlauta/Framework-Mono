@@ -15,37 +15,43 @@ package Mono.Console
 
 	public class Console
 	{
-		public var consoleText:TextField;
-		public var commands:Dictionary;
-		public var isOpened:Boolean;
-		public var comandosAnteriores:Vector.<TextField> = new Vector.<TextField>;
+		private var _font:String;
+		private var _size:int;
+		private var _color:Number;
+		private var _consoleText:TextField;
+		private var _commands:Dictionary;
+		private var _isOpen:Boolean;
+		private var _latestCommands:Vector.<TextField> = new Vector.<TextField>;
 		
 		public function Console()
 		{
 			
 		}
 		
-		/** Turns the console on.
+		/** Turns on the console.
 		 * 
 		 * @param font Tipografic font of the console (Default: 'Console')
 		 * @param size Console's font size (Default: 20)
-		 * @param colour Console's font colour (Default: 0xFFFFFF / White)
+		 * @param colour Console's font color (Default: 0x000000)
 		 * 
 		 *  */
-		public function encenderConsole(font:String = "Console", size:int = 20, colour:Number = 0xFFFFFF):void
+		public function turnOnConsole(font:String = "Console", size:int = 20, color:Number = 0x000000):void
 		{
-			commands = new Dictionary();
-			isOpened = true; 
-			consoleText = new TextField(); 
-			consoleText.type = TextFieldType.INPUT;
-			consoleText.defaultTextFormat = new TextFormat(font, size, colour); 
-			consoleText.autoSize = TextFieldAutoSize.LEFT; 
-			Main.mono.mainStage.addChild(consoleText);
+			_font = font;
+			_size = size;
+			_color = color;
+			_commands = new Dictionary();
+			_isOpen = true; 
+			_consoleText = new TextField(); 
+			_consoleText.type = TextFieldType.INPUT;
+			_consoleText.defaultTextFormat = new TextFormat(font, size, color); 
+			_consoleText.autoSize = TextFieldAutoSize.LEFT; 
+			Main.mono.mainStage.addChild(_consoleText);
 			Main.mono.mainStage.addEventListener(KeyboardEvent.KEY_DOWN, evKeyDown); 
-			AddHistory("Welcome to the console"); 
-			AddHistory("     Write 'close' to close the console"); 
-			AddHistory("     Write '?' to see the comands list"); 
-			registerCommand("?", help, "Returns the list of comands"); 
+			addToHistory("Welcome to the console"); 
+			addToHistory("     Write 'close' to close the console"); 
+			addToHistory("     Write '?' to see the commands list"); 
+			registerCommand("?", help, "Returns the list of commands"); 
 			registerCommand("cls", cleanConsole, "Clears the console's history"); 
 			registerCommand("close", close, "Closes the console");
 		}
@@ -54,45 +60,24 @@ package Mono.Console
 		 *  */
 		private function evKeyDown(event:KeyboardEvent):void
 		{
-			switch(event.keyCode) 
-			{
-				case Keyboard.F8:
-					if(isOpened) 
-					{
-						close(); 
-					}
-					else
-					{
-						open(); 
-					}
-					break;
-				
-				case Keyboard.ENTER:
-				{
-					executeCommand();
-					break;
-				}
-					
-				default:
-				{
-					break;
-				}
-			}
+			if(event.keyCode == Keyboard.ENTER)
+				executeCommand();
 		}
 		
 		/** Register a command for the console.
 		 * @param name Command's name
 		 * @param com The callback of the command
 		 * @param description The description of the command
+		 * @param nOfParameters The number of  parameters to recieve (Default: 0)
 		 *  */
-		public function registerCommand(name:String, com:Function, description:String):void
+		public function registerCommand(name:String, com:Function, description:String, nOfParameters:int = 0):void
 		{
 			var tempData:CommandData = new CommandData(); 
 			tempData.name = name; 
 			tempData.command = com; 
 			tempData.description = description;
-			
-			commands[name] = tempData;
+			tempData.numberOfParameters = nOfParameters;
+			_commands[name] = tempData;
 		}
 		
 		/** Eliminates a command from the console.
@@ -100,64 +85,47 @@ package Mono.Console
 		 *  */
 		public function unregisterCommand(name:String):void
 		{
-			delete commands[name];
+			delete _commands[name];
 		}
 		
 		/** Runs the command that is in the console.
 		 *  */
 		public function executeCommand():void
 		{
-			var cutResult:Array = consoleText.text.split(" "); 
+			var cutResult:Array = _consoleText.text.split(" "); 
 			var commandName:String = cutResult[0];
-			var tempCommand:CommandData = commands[commandName];
+			var tempCommand:CommandData = _commands[commandName];
 			cutResult.shift();
 			
-			if(tempCommand != null) 
-			{
-				if(cutResult.length > 0)
-				{
+			if(tempCommand != null)
+				if(cutResult.length == tempCommand.numberOfParameters)
 					tempCommand.command.apply(null, cutResult);
-				}
 				else
-				{
-					AddHistory("+ERROR: The command was misused"); 
-				}
-			}
+					addToHistory("+ERROR: Misused the command");
 			else
-			{
-				AddHistory("+ERROR: The command does not exist");
-			}
-		}
-		
-		/** Opens the console.
-		 *  */
-		private function open():void
-		{
-			Main.mono.mainStage.addChild(consoleText); 
-			consoleText.text = "+Insert command"; 
-			isOpened = true;
+				addToHistory("+ERROR: The command does not exist");
 		}
 		
 		/** Closes the console.
 		 *  */
 		private function close():void
 		{
-			Main.mono.mainStage.removeChild(consoleText);
+			Main.mono.mainStage.removeChild(_consoleText);
 			Main.mono.mainStage.removeEventListener(KeyboardEvent.KEY_DOWN, evKeyDown); 
 			cleanConsole(); 
-			isOpened = false; 
+			_isOpen = false; 
 		}
 		
 		/** Function help of the console. Shows the list of commands.
 		 *  */
 		private function help():void
 		{
-			AddHistory(" ? ");
-			AddHistory("+Function Help was implemented");
-			AddHistory("HELP: Next there is a list of the commands that can be used in the console");
-			for each(var current:CommandData in commands)
+			addToHistory(" ? ");
+			addToHistory("+Function Help was implemented");
+			addToHistory("HELP: Next there is a list of the commands that can be used in the console");
+			for each(var current:CommandData in _commands)
 			{
-				AddHistory("     "+current);
+				addToHistory("     "+current);
 			}
 		}
 		
@@ -165,32 +133,32 @@ package Mono.Console
 		 *  */
 		private function cleanConsole():void
 		{
-			for (var i:int = 0 ; i < comandosAnteriores.length ; i++)
+			for (var i:int = 0 ; i < _latestCommands.length ; i++)
 			{
-				if(comandosAnteriores[i] != null)
+				if(_latestCommands[i] != null)
 				{
-					Main.mono.mainStage.removeChild(comandosAnteriores[i]);
+					Main.mono.mainStage.removeChild(_latestCommands[i]);
 				}
 			}
-			comandosAnteriores = new Vector.<TextField>();
+			_latestCommands = new Vector.<TextField>();
 		}
 		
 		/** Function Adds text to history.
 		 *  */
-		private function AddHistory(texto:String):void
+		private function addToHistory(texto:String):void
 		{
-			comandosAnteriores.splice(0, 0, new TextField); 
-			Main.mono.mainStage.addChild(comandosAnteriores[0]); 
-			comandosAnteriores[0].defaultTextFormat = new TextFormat("Console", 20, 0xFFFFFF);
-			comandosAnteriores[0].wordWrap = true;
-			comandosAnteriores[0].width = 770;
-			comandosAnteriores[0].autoSize = TextFieldAutoSize.LEFT; 
-			comandosAnteriores[0].text = texto; 
-			comandosAnteriores[0].y=320; 
-			comandosAnteriores[0].x=13; 
-			for (var i:int = 0; i< comandosAnteriores.length; i++)
+			_latestCommands.splice(0, 0, new TextField); 
+			Main.mono.mainStage.addChild(_latestCommands[0]); 
+			_latestCommands[0].defaultTextFormat = new TextFormat(_font, _size, _color);
+			_latestCommands[0].wordWrap = true;
+			_latestCommands[0].width = 770;
+			_latestCommands[0].autoSize = TextFieldAutoSize.LEFT; 
+			_latestCommands[0].text = texto; 
+			_latestCommands[0].y=320; 
+			_latestCommands[0].x=13; 
+			for (var i:int = 0; i< _latestCommands.length; i++)
 			{
-				comandosAnteriores[i].y -=consoleText.height;
+				_latestCommands[i].y -=_consoleText.height;
 			}
 		}
 	}

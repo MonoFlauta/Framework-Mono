@@ -7,6 +7,7 @@ package Mono.Console
 		public var name:String;
 		public var command:Function;
 		public var description:String;
+		public var numberOfParameters:int;
 		
 		public function CommandData()
 		{
@@ -19,7 +20,7 @@ package Mono.Console
 		 * @return Returns a String with the parameters. */
 		public function toString():String
 		{
-			return "+Name: " + name + " / Description: " + description;
+			return "+Name: " + name + " / Description: " + description + " / Number  of parameters: "+numberOfParameters;
 		}
 	}
 }
