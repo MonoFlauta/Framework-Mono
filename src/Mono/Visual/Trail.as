@@ -3,7 +3,6 @@ package Mono.Visual
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.utils.Dictionary;
 
 	public class Trail
 	{
@@ -21,6 +20,15 @@ package Mono.Visual
 		private var _emitting:Boolean = false;
 		private var _container:Sprite;
 		
+		/**Creates a Trail effect.
+		 * 
+		 * @param particleModelFactory A function that returns the movieclip of the trail particle
+		 * @param container Sprite where the particle should be added
+		 * @param pDuration Duration, in frames, of the particle (Default: 10)
+		 * @param maxEmission Max ammount of particles at once (Default: 10)
+		 * @param fPerSpawn Frames between each particle spawn (Default: 1)
+		 * 
+		 * */
 		public function Trail(particleModelFactory:Function, container:Sprite, pDuration:Number = 10, maxEmission:int = 10, fPerSpawn:int = 1)
 		{
 			_container = container;
@@ -36,6 +44,11 @@ package Mono.Visual
 			Main.mono.updateManager.addCallBack(update);
 		}
 		
+		/** Starts emitting particles
+		 * 
+		 * @param target The display object from where the particles will take the position and rotation
+		 * 
+		 * */
 		public function startEmitting(target:DisplayObject):void
 		{
 			emitter = target;
@@ -45,11 +58,17 @@ package Mono.Visual
 			}
 		}
 		
+		/** Stops emitting particles
+		 * 
+		 * */
 		public function stopEmitting():void
 		{
 			_emitting = false;
 		}
 		
+		/** Destroys the trail
+		 * 
+		 * */
 		public function destroy():void
 		{
 			for(var i:int = _onParticles.length - 1; i >= 0; i--)
@@ -60,6 +79,11 @@ package Mono.Visual
 			Main.mono.updateManager.removeCallBack(update);
 		}
 		
+		/** Changes the max ammount of particles
+		 * 
+		 * @param maxEmission New ammount
+		 * 
+		 * */
 		public function changeMaxEmission(maxEmission:Number):void
 		{
 			if(_maxEmission < maxEmission)
@@ -82,6 +106,9 @@ package Mono.Visual
 			_maxEmission = maxEmission;
 		}
 		
+		/** Updates the trail
+		 * 
+		 * */
 		private function update():void
 		{
 			if(_emitting)
@@ -95,6 +122,7 @@ package Mono.Visual
 					p.gotoAndPlay(1);
 					p.x = emitter.x;
 					p.y = emitter.y;
+					p.rotation = emitter.rotation;
 					_onParticles.push(p);
 					_onParticlesTime.push(particlesDuration);
 				}
